@@ -1,5 +1,7 @@
 package at.technikum.todoapp.entity;
 
+import jakarta.validation.constraints.NotBlank;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -7,6 +9,7 @@ public class Todo {
 
     private String id;
 
+    @NotBlank
     private String task;
 
     private LocalDateTime due;

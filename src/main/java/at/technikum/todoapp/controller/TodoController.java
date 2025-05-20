@@ -1,6 +1,7 @@
 package at.technikum.todoapp.controller;
 
 import at.technikum.todoapp.entity.Todo;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -17,11 +18,11 @@ public class TodoController {
 
     @GetMapping("/{id}")
     public Todo read(@PathVariable String id) {
-        return null;
+        return new Todo("Buy food", LocalDateTime.now(), false);
     }
 
     @PostMapping
-    public Todo create(@RequestBody Todo todo) {
+    public Todo create(@RequestBody @Valid Todo todo) {
         return null;
     }
 
