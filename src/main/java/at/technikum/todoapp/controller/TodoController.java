@@ -1,7 +1,10 @@
 package at.technikum.todoapp.controller;
 
 import at.technikum.todoapp.entity.Todo;
+import at.technikum.todoapp.service.TodoService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -10,6 +13,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/todos")
 public class TodoController {
+
+    private final TodoService todoService;
+
+    public TodoController(TodoService todoService) {
+        this.todoService = todoService;
+    }
 
     @GetMapping
     public List<Todo> readAll() {
@@ -22,8 +31,9 @@ public class TodoController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Todo create(@RequestBody @Valid Todo todo) {
-        return null;
+        return this.todoService.create(todo);
     }
 
     @PutMapping("/{id}")

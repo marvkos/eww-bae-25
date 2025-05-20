@@ -1,12 +1,16 @@
 package at.technikum.todoapp.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Entity
 public class Todo {
 
+    @Id
     private String id;
 
     @NotBlank
@@ -15,6 +19,10 @@ public class Todo {
     private LocalDateTime due;
 
     private boolean done;
+
+    public Todo() {
+        this.id = UUID.randomUUID().toString();
+    }
 
     public Todo(String task, LocalDateTime due, boolean done) {
         this.id = UUID.randomUUID().toString();
