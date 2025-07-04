@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/todos")
 public class TodoController {
@@ -22,7 +23,10 @@ public class TodoController {
 
     @GetMapping
     public List<Todo> readAll() {
-        return null;
+        return List.of(
+                new Todo("Buy food", LocalDateTime.now(), false),
+                new Todo("Clean", LocalDateTime.now(), false)
+        );
     }
 
     @GetMapping("/{id}")
