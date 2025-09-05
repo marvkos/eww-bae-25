@@ -35,6 +35,10 @@ public class Todo {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getTask() {
         return task;
     }

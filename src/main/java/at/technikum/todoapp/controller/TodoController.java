@@ -1,10 +1,12 @@
 package at.technikum.todoapp.controller;
 
 import at.technikum.todoapp.entity.Todo;
+import at.technikum.todoapp.security.UserPrincipal;
 import at.technikum.todoapp.service.TodoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -23,20 +25,21 @@ public class TodoController {
 
     @GetMapping
     public List<Todo> readAll() {
-        return List.of(
-                new Todo("Buy food", LocalDateTime.now(), false),
-                new Todo("Clean", LocalDateTime.now(), false)
-        );
+        return todoService.getAll();
     }
 
     @GetMapping("/{id}")
     public Todo read(@PathVariable String id) {
-        return new Todo("Buy food", LocalDateTime.now(), false);
+        return todoService.getById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Todo create(@RequestBody @Valid Todo todo) {
+    public Todo create(
+            @RequestBody @Valid Todo todo,
+            @AuthenticationPrincipal UserPrincipal userPrincipal
+            ) {
+        String userId = userPrincipal.getUserId();
         return this.todoService.create(todo);
     }
 
